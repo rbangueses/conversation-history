@@ -3,19 +3,23 @@ const MAX_MESSAGES_TO_FETCH = 100;
 /* Returns the messages within a given conversation */
 async function getConversationMessages(client, conversationSid){
     var result = [];
-    const messages = await client.conversations.v1.conversations(conversationSid)
+    var messages = await client.conversations.v1.conversations(conversationSid)
         .messages
         .list({limit: MAX_MESSAGES_TO_FETCH})
     
     //create a result object with the information we want to supply
     for await (const message of messages){
+
+        let media = JSON.stringify(message.media);
+        
         let msg = JSON.parse(`{
             "index": "${message.index}",
             "author": "${message.author}", 
             "body": "${message.body}",
-            "media": "${message.media}",
+            "media": ${media},
             "dateCreated": "${message.dateCreated}"
             }`);
+        console.log(msg);
         result.push(msg);
     }
     return result;

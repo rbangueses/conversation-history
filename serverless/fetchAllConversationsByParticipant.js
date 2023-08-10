@@ -54,7 +54,7 @@ async function getAllConversationsList(client, fromAddress, date){
     //remove those that are not to be presented
     if(MAX_CONVERSATIONS_TO_FETCH > MAX_CONVERSATIONS_TO_PRESENT){
       conversationsList
-        .splice(MAX_CONVERSATIONS_TO_PRESENT+1, MAX_CONVERSATIONS_TO_FETCH - MAX_CONVERSATIONS_TO_PRESENT);
+        .splice(MAX_CONVERSATIONS_TO_PRESENT, MAX_CONVERSATIONS_TO_FETCH - MAX_CONVERSATIONS_TO_PRESENT);
     }
     
     //create a result object with the information we want to supply

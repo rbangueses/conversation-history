@@ -8,6 +8,10 @@ The agent is able to see a list of conversations, ordered by date (most recent -
 
 ![Alt text](other_assets/screenshot1.png)
 
+The transcripts will also show the file names and types that have been shared but without links to the files.
+
+![!\[Alt text\](image.png)](other_assets/conversation-with-attachments.png)
+
 ## How does this work?
 
 This plugin leverages the Conversations API to fetch those conversations where the "from" address is a participant. Whether we receive a whatsapp, chat or sms, we do a fetch for conversations based on:

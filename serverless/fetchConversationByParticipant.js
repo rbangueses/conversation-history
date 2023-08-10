@@ -27,10 +27,10 @@ async function getConversationsList(client, fromAddress, date){
 
     //fetch conversations with filters
     var conversationsList = await client
-      .conversations
-      .v1
-      .participantConversations
-      .list({address: fromAddress, startDate: newDate, limit: MAX_CONVERSATIONS_TO_FETCH})//.then( convos => {console.log(convos)})
+    .conversations
+    .v1
+    .participantConversations
+    .list({address: fromAddress, startDate: newDate, limit: MAX_CONVERSATIONS_TO_FETCH})//.then( convos => {console.log(convos)})
 
     //sort by date created 
     conversationsList.sort((a, b) => new Date(b.conversationDateCreated) - new Date(a.conversationDateCreated));  
@@ -38,7 +38,7 @@ async function getConversationsList(client, fromAddress, date){
     //remove those that are not to be presented
     if(MAX_CONVERSATIONS_TO_FETCH > MAX_CONVERSATIONS_TO_PRESENT){
       conversationsList
-        .splice(MAX_CONVERSATIONS_TO_PRESENT+1, MAX_CONVERSATIONS_TO_FETCH - MAX_CONVERSATIONS_TO_PRESENT);
+        .splice(MAX_CONVERSATIONS_TO_PRESENT, MAX_CONVERSATIONS_TO_FETCH - MAX_CONVERSATIONS_TO_PRESENT);
     }
     //create a result object with the information we want to supply
     for await (const conversation of conversationsList){

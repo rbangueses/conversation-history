@@ -9,13 +9,12 @@ async function addParticipant(client, conversationSid, address){
     console.log("the address (phone number) provided does not start with a +. Address provided: ", address)
     return;
   }
-
   const addParticipant = await client.conversations.v1.conversations(conversationSid)
-  .participants
-  .create({
-     'messagingBinding.address': address
-   })
-  .then(participant => console.log(participant.sid));
+    .participants
+    .create({
+      'messagingBinding.address': address
+    })
+    .then(participant => console.log(participant.sid));
 }
 
 exports.handler = async function(context, event, callback) {
