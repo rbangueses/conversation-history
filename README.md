@@ -4,7 +4,7 @@ This plugin adds a new tab on the task canvas (Conversations), which presents a 
 
 ![Alt text](other_assets/conversation-history.gif)
 
-[[other_assets/conversation-history.gif|width=500px]]
+[https://github.com/rbangueses/conversation-history/blob/main/other_assets/conversation-history.gif|width=500px]
 
 The agent is able to see a list of conversations, ordered by date (most recent -> most old), with an icon identifying the channel (whatsapp / chat / sms), as well as the state of the conversation (active / closed). The plugin will fetch conversations older than N months and present up to M conversations at the same time. 
 
