@@ -1,3 +1,4 @@
+const TokenValidator = require('twilio-flex-token-validator').functionValidator;
 const MAX_MESSAGES_TO_FETCH = 100;
 
 /* Returns the messages within a given conversation */
@@ -25,7 +26,7 @@ async function getConversationMessages(client, conversationSid){
     return result;
 }
 
-exports.handler = async function(context, event, callback) {
+exports.handler = TokenValidator (async function(context, event, callback) {
   // Access the NodeJS Helper Library by calling context.getTwilioClient()
   const client = context.getTwilioClient();
 
@@ -58,4 +59,4 @@ exports.handler = async function(context, event, callback) {
     response.setStatusCode(200);
     callback(null, response);
   })
-};
+});

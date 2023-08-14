@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Flex from '@twilio/flex-ui';
 import { ITask, Icon, withTaskContext } from '@twilio/flex-ui';
 import { fetchConversationMessages } from '../../helpers/fetchConversationsAndMessages';
 import {
@@ -15,6 +16,7 @@ import {
 type MyProps = {
     task: ITask;
     conversationSid: string;
+    manager: Flex.Manager;
   };
 
 type MessageTrimmed = {
@@ -45,7 +47,7 @@ class ConversationHistoryTranscriptComponent extends React.Component<MyProps, My
     }  
 
     async componentDidMount(){
-        const fetchMessagesRequest = await fetchConversationMessages(this.props.conversationSid).then( (messages) =>{
+        const fetchMessagesRequest = await fetchConversationMessages(this.props.manager, this.props.conversationSid).then( (messages) =>{
             this.setState({messages : messages})
         })
     }

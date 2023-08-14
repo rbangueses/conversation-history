@@ -1,3 +1,5 @@
+const TokenValidator = require('twilio-flex-token-validator').functionValidator;
+
 /* Fetches all conversations by a participant.
 * The participant is either a phone number i.e. +447123123123 or a whatsapp:++447123123123 and then we bundle them together
 * If the participant is a chat participant, the chat is being tied to a from address //TODO MODIFIED FROM?
@@ -79,7 +81,8 @@ async function getAllConversationsList(client, fromAddress, date){
     return result;
 }
 
-exports.handler = async function(context, event, callback) {
+
+exports.handler = TokenValidator ( async function(context, event, callback) {
   // Access the NodeJS Helper Library by calling context.getTwilioClient()
   const client = context.getTwilioClient();
 
@@ -121,4 +124,4 @@ exports.handler = async function(context, event, callback) {
     response.setStatusCode(200);
     callback(null, response);
   })
-};
+});

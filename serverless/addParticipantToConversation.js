@@ -1,6 +1,7 @@
 /* This function is used to add a participant to a conversation before we close it, 
 * so that the live chat session can be surfaced on the previous chat conversations
 */
+const TokenValidator = require('twilio-flex-token-validator').functionValidator;
 
 //adds a messaging binding address (phone number) to an existing conversation
 async function addParticipant(client, conversationSid, address){
@@ -17,7 +18,7 @@ async function addParticipant(client, conversationSid, address){
     .then(participant => console.log(participant.sid));
 }
 
-exports.handler = async function(context, event, callback) {
+exports.handler = TokenValidator (async function(context, event, callback) {
 
 const client = context.getTwilioClient();
 const response = new Twilio.Response();
@@ -49,4 +50,4 @@ const request = await addParticipant(client, conversationSid, address).then( fun
   response.setStatusCode(200);
   callback(null, response);
   })
-};
+});

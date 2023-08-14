@@ -31,7 +31,7 @@ The plugin modifies the 'WrapupTask' flex action when there is a new chat conver
 1. Deploy the serverless functions within the serverless folder. Here's a brief description of the functions:
 - addParticipantToConversation: this function is used by the plugin to add a new messaging_binding to the chat conversations before closing so they can be fetched.
 - fetchAllConversationsByParticipant: this function will fetch all the conversations (whatsapp/sms/chats), put them in a list, sort them in alphabetical order and return them. It uses a start date as a way to filter the searches, i.e. it can fetch all conversations from the past month or past N months.
-- fetchConversationByParticipant: as above, but will keep the whatsapp and the chat/sms conversations separate.
+- fetchConversationByParticipant: Not in use. As above, but will keep the whatsapp and the chat/sms conversations separate.
 - fetchConversationMessages: this function will fetch the conversation messages as well as other details within a conversation. 
 
 The functions have the following configuration parameters:
@@ -43,6 +43,8 @@ fetchAllConversationsByParticipant / fetchConversationByParticipant:
 
 fetchConversationMessages:
 - const MAX_MESSAGES_TO_FETCH = 100;
+
+All these functions leverage the token validator for security.
 
 2. Configure the plugin with the desired environment variables
 

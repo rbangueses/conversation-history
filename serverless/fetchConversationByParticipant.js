@@ -3,7 +3,7 @@
 * The participant is either a phone number i.e. +447123123123 or a whatsapp:++447123123123 
 * If the participant is a chat participant, the chat is being tied to a from address //TODO MODIFIED FROM?
 */
-
+const TokenValidator = require('twilio-flex-token-validator').functionValidator;
 const MAX_CONVERSATIONS_TO_FETCH = 100;
 const MAX_CONVERSATIONS_TO_PRESENT = 20;
 const MAX_PERIOD = 12;
@@ -64,7 +64,7 @@ async function getConversationsList(client, fromAddress, date){
     return result;
 }
 
-exports.handler = async function(context, event, callback) {
+exports.handler = TokenValidator (async function(context, event, callback) {
   // Access the NodeJS Helper Library by calling context.getTwilioClient()
   const client = context.getTwilioClient();
 
@@ -106,4 +106,4 @@ exports.handler = async function(context, event, callback) {
     response.setStatusCode(200);
     callback(null, response);
   })
-};
+});

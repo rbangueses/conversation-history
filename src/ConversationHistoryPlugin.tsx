@@ -26,7 +26,7 @@ export default class ConversationHistoryPlugin extends FlexPlugin {
       PasteThemeProvider: CustomizationProvider
     });
 
-    flex.TaskCanvasTabs.Content.add(<ConversationHistoryTabComponent key="data-on-canvas-comp" label="Conversations"/>);
+    flex.TaskCanvasTabs.Content.add(<ConversationHistoryTabComponent key="data-on-canvas-comp" label="Conversations" manager={manager}/>);
 
     //alter wrap-up to add address to chat interactions so they can be found  
     flex.Actions.replaceAction('WrapupTask', async (payload, original) => {
@@ -35,7 +35,7 @@ export default class ConversationHistoryPlugin extends FlexPlugin {
         original(payload);
       }
       else {
-        await addParticipantToConversation(payload.task.attributes.conversationSid, payload.task.attributes.from);
+        await addParticipantToConversation(manager, payload.task.attributes.conversationSid, payload.task.attributes.from);
         return new Promise(function(resolve, reject) {
           resolve(original(payload));
         })        

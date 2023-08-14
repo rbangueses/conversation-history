@@ -1,28 +1,14 @@
-/* Two options are provided: 
-* fetchConversationsByParticipant - does not join WhatsApp and SMS together
-* fetchAllConversationsByParticipant - joins WhatsApp and SMS together
-*/
-//fetch list of conversations using phoneNumber and dateOffset as filters. Does not join WhatsApp and SMS together
-// export async function fetchConversationsByParticipant(phoneNumber, dateOffset){
-//     const options = {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-//         }
-//     };
-
-//     return new Promise((resolve, reject) =>{
-//       fetch(`${process.env.REACT_APP_SERVERLESS_DOMAIN_URL}fetchConversationsByParticipant?phoneNumber=${encodeURIComponent(phoneNumber)}&dateOffset=${dateOffset}`, options)
-//       .then(data => {
-//         resolve(data.json());
-//       })
-//     })
-// }
-
 //fetch list of conversations using phoneNumber and dateOffset as filters
-export async function fetchConversationsByParticipant(phoneNumber, dateOffset){
+export async function fetchConversationsByParticipant(manager, phoneNumber, dateOffset){
+  // Add the Token using the Flex manager
+  const body = {
+    WorkspaceSid: 'WS45ce05b26c5bdc08e60bb4dbd7c6a46f',
+    Token: manager.store.getState().flex.session.ssoTokenPayload.token
+  };
+
   const options = {
-      method: 'GET',
+      method: 'POST',
+      body: new URLSearchParams(body),
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
       }
@@ -36,18 +22,24 @@ export async function fetchConversationsByParticipant(phoneNumber, dateOffset){
   })
 }
 
-export async function fetchConversationMessages(conversationSid){
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        }
-    };
+export async function fetchConversationMessages(manager, conversationSid){
+  const body = {
+    WorkspaceSid: 'WS45ce05b26c5bdc08e60bb4dbd7c6a46f',
+    Token: manager.store.getState().flex.session.ssoTokenPayload.token
+  };
+  
+  const options = {
+      method: 'POST',
+      body: new URLSearchParams(body),
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      }
+  };
 
-    return new Promise((resolve, reject) =>{
-      fetch(`${process.env.REACT_APP_SERVERLESS_DOMAIN_URL}fetchConversationMessages?conversationSid=${conversationSid}`, options)
-      .then(data => {
-        resolve(data.json());
-      })
+  return new Promise((resolve, reject) =>{
+    fetch(`${process.env.REACT_APP_SERVERLESS_DOMAIN_URL}fetchConversationMessages?conversationSid=${conversationSid}`, options)
+    .then(data => {
+      resolve(data.json());
     })
+  })
 }
